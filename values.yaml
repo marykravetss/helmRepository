@@ -2,7 +2,7 @@ namespace: my-namespace
 
 nginx:
   name: nginx
-  replicas: 1
+  replicas: 2
   image: marykravetss/my-nginx:latest
   configMapName: nginx-configmap
 

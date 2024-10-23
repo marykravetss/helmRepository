@@ -76,9 +76,9 @@ nginxConfigmap:
   nginxConf: |-
     server {
         listen 80;
-        #listen 443 ssl;
-        #ssl_certificate /etc/letsencrypt/live/mytesthost11.hopto.org/fullchain.pem;
-        #ssl_certificate_key /etc/letsencrypt/live/mytesthost11.hopto.org/privkey.pem;
+        listen 443 ssl;
+        ssl_certificate /etc/nginx/ssl/fullchain.pem;
+        ssl_certificate_key /etc/nginx/ssl/privkey.pem;
         server_name mytesthost11.hopto.org;
         location / {
             root /var/www/html;

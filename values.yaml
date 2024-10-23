@@ -1,0 +1,10 @@
+nginx:
+  name: nginx
+  replicas: 1
+  image: marykravetss/my-nginx:latest
+  configMapName: nginx-configmap
+apache:
+  name: apache
+  replicas: 1
+  image: marykravetss/my-apache:latest
+namespace: my-namespace

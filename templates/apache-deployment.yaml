@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.apache.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.apache.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.apache.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.apache.name }}
+    spec:
+      containers:
+      - name: {{ .Values.apache.name }}
+        image: {{ .Values.apache.image }}
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        startupProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10

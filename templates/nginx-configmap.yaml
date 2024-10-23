@@ -4,33 +4,5 @@ metadata:
   name: {{ .Values.nginx.configMapName }}
   namespace: {{ .Values.namespace }}
 data:
-  nginx.conf: |
-    server {
-        listen 80;
-        listen 443 ssl;
-        ssl_certificate /etc/nginx/ssl/fullchain.pem;
-        ssl_certificate_key /etc/nginx/ssl/privkey.pem;
-        server_name mytesthost11.hopto.org;
-        location / {
-                root /var/www/html;
-                index index.html;
-        }
-        location /secondpage {
-                alias /var/www/html;
-                index secondpage.html;
-        }
-        location /music {
-                alias /var/www/html/music/file.mp3;
-                add_header Content-Disposition 'attachment; filename="file.mp3"';
-        }
-        location /info.php {
-                proxy_pass http://apache-service:8080/info.php;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-        }
-        location /secondserver {
-                return 301 https://onliner.by$request_uri;
-        }
-    }
+  nginx.conf: |-
+    {{ .Values.nginxConfigmap.nginxConf | nindent 4 }}
